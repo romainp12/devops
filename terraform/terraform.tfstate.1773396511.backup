@@ -1,0 +1,342 @@
+{
+  "version": 4,
+  "terraform_version": "1.5.7",
+  "serial": 31,
+  "lineage": "ea76c016-a992-1da7-e0ad-ededd5befeec",
+  "outputs": {
+    "container_name": {
+      "value": "fichiers",
+      "type": "string"
+    },
+    "flask_url": {
+      "value": "http://20.216.151.17:5000",
+      "type": "string"
+    },
+    "storage_account_name": {
+      "value": "devopsromainstore",
+      "type": "string"
+    },
+    "vm_ip_publique": {
+      "value": "20.216.151.17",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": []
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_security_group",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain/providers/Microsoft.Network/networkSecurityGroups/devops-romain-nsg",
+            "location": "francecentral",
+            "name": "devops-romain-nsg",
+            "resource_group_name": "devops-romain",
+            "security_rule": [
+              {
+                "access": "Allow",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "22",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "allow-ssh",
+                "priority": 100,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              },
+              {
+                "access": "Allow",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "8080",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "allow-flask",
+                "priority": 101,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              }
+            ],
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_postgresql_flexible_server",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "administrator_login": "admindb",
+            "administrator_password": "DevopsRomain123!",
+            "authentication": [
+              {
+                "active_directory_auth_enabled": false,
+                "password_auth_enabled": true,
+                "tenant_id": ""
+              }
+            ],
+            "auto_grow_enabled": false,
+            "backup_retention_days": 7,
+            "create_mode": null,
+            "customer_managed_key": [],
+            "delegated_subnet_id": "",
+            "fqdn": "devops-romain-db.postgres.database.azure.com",
+            "geo_redundant_backup_enabled": false,
+            "high_availability": [],
+            "id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain/providers/Microsoft.DBforPostgreSQL/flexibleServers/devops-romain-db",
+            "identity": [],
+            "location": "francecentral",
+            "maintenance_window": [],
+            "name": "devops-romain-db",
+            "point_in_time_restore_time_in_utc": null,
+            "private_dns_zone_id": "",
+            "public_network_access_enabled": true,
+            "replication_role": "",
+            "resource_group_name": "devops-romain",
+            "sku_name": "B_Standard_B1ms",
+            "source_server_id": null,
+            "storage_mb": 32768,
+            "storage_tier": "P4",
+            "tags": null,
+            "timeouts": null,
+            "version": "14",
+            "zone": "2"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "administrator_password"
+              }
+            ]
+          ],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozNjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_postgresql_flexible_server_firewall_rule",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "end_ip_address": "255.255.255.255",
+            "id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain/providers/Microsoft.DBforPostgreSQL/flexibleServers/devops-romain-db/firewallRules/allow-all",
+            "name": "allow-all",
+            "server_id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain/providers/Microsoft.DBforPostgreSQL/flexibleServers/devops-romain-db",
+            "start_ip_address": "0.0.0.0",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_postgresql_flexible_server.main",
+            "azurerm_resource_group.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_public_ip",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allocation_method": "Static",
+            "ddos_protection_mode": "VirtualNetworkInherited",
+            "ddos_protection_plan_id": null,
+            "domain_name_label": null,
+            "edge_zone": "",
+            "fqdn": null,
+            "id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain/providers/Microsoft.Network/publicIPAddresses/devops-romain-ip",
+            "idle_timeout_in_minutes": 4,
+            "ip_address": "20.216.151.17",
+            "ip_tags": null,
+            "ip_version": "IPv4",
+            "location": "francecentral",
+            "name": "devops-romain-ip",
+            "public_ip_prefix_id": null,
+            "resource_group_name": "devops-romain",
+            "reverse_fqdn": null,
+            "sku": "Standard",
+            "sku_tier": "Regional",
+            "tags": null,
+            "timeouts": null,
+            "zones": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain",
+            "location": "francecentral",
+            "managed_by": "",
+            "name": "devops-romain",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_storage_container",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "container_access_type": "private",
+            "default_encryption_scope": "$account-encryption-key",
+            "encryption_scope_override_enabled": true,
+            "has_immutability_policy": false,
+            "has_legal_hold": false,
+            "id": "https://devopsromainstore.blob.core.windows.net/fichiers",
+            "metadata": {},
+            "name": "fichiers",
+            "resource_manager_id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain/providers/Microsoft.Storage/storageAccounts/devopsromainstore/blobServices/default/containers/fichiers",
+            "storage_account_name": "devopsromainstore",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "azurerm_resource_group.main",
+            "azurerm_storage_account.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_prefixes": [
+              "10.0.1.0/24"
+            ],
+            "default_outbound_access_enabled": true,
+            "delegation": [],
+            "enforce_private_link_endpoint_network_policies": false,
+            "enforce_private_link_service_network_policies": false,
+            "id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain/providers/Microsoft.Network/virtualNetworks/devops-romain-vnet/subnets/devops-romain-subnet",
+            "name": "devops-romain-subnet",
+            "private_endpoint_network_policies": "Enabled",
+            "private_endpoint_network_policies_enabled": true,
+            "private_link_service_network_policies_enabled": true,
+            "resource_group_name": "devops-romain",
+            "service_endpoint_policy_ids": [],
+            "service_endpoints": [],
+            "timeouts": null,
+            "virtual_network_name": "devops-romain-vnet"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.main",
+            "azurerm_virtual_network.main"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_space": [
+              "10.0.0.0/16"
+            ],
+            "bgp_community": "",
+            "ddos_protection_plan": [],
+            "dns_servers": [],
+            "edge_zone": "",
+            "encryption": [],
+            "flow_timeout_in_minutes": 0,
+            "guid": "1b1fad59-fb5b-4059-9d52-e7d26eae95bb",
+            "id": "/subscriptions/c71f8ae4-544c-4fea-80b2-95d882c1405c/resourceGroups/devops-romain/providers/Microsoft.Network/virtualNetworks/devops-romain-vnet",
+            "location": "francecentral",
+            "name": "devops-romain-vnet",
+            "resource_group_name": "devops-romain",
+            "subnet": [],
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.main"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
